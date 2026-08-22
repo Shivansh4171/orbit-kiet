@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit for KIET</title>
+<meta name="description" content="Orbit for KIET — a cleaner CyberVidya attendance companion.">
+
+<style>
+:root{
+  --bg:#f4f8f4;
+  --card:#fff;
+  --text:#17311e;
+  --muted:#607267;
+  --accent:#2f7b42;
+  --soft:#e3f1e5;
+  --border:rgba(23,49,30,.10);
+  --shadow:0 20px 60px rgba(25,55,33,.10)
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at top right,#dff0e2 0,transparent 34%),
+    linear-gradient(180deg,#f7fbf7,#eef5ef);
+  color:var(--text)
+}
+
+.wrap{
+  width:min(1050px,calc(100% - 32px));
+  margin:auto
+}
+
+header{
+  text-align:center;
+  padding:70px 0 28px
+}
+
+.eyebrow{
+  display:inline-flex;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:var(--soft);
+  color:var(--accent);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#58ad68
+}
+
+h1{
+  font-size:clamp(42px,8vw,78px);
+  line-height:.95;
+  letter-spacing:-.06em;
+  margin:20px 0 14px
+}
+
+.hero{
+  max-width:720px;
+  margin:auto;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.6
+}
+
+.features{
+  margin:28px auto 32px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px
+}
+
+.pill{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700
+}
+
+.quick-nav{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:0 auto 42px
+}
+
+.quick-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius:11px;
+  background:#fff;
+  border:1px solid var(--border);
+  color:var(--accent);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 6px 18px rgba(25,55,33,.05)
+}
+
+.quick-nav a:hover{transform:translateY(-1px)}
+
+.about{
+  margin:0 0 40px;
+  padding:25px;
+  border-radius:24px;
+  background:rgba(255,255,255,.88);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow)
+}
+
+.about h2{
+  margin:0 0 8px;
+  font-size:25px
+}
+
+.about p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.65;
+  font-size:14px
+}
+
+.about strong{color:var(--text)}
+
+.downloads{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin-bottom:55px
+}
+
+.card{
+  background:rgba(255,255,255,.9);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:24px;
+  box-shadow:var(--shadow)
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:16px
+}
+
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:var(--soft);
+  font-size:22px
+}
+
+.tag{
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--muted)
+}
+
+h2{
+  font-size:25px;
+  margin:7px 0 8px;
+  letter-spacing:-.03em
+}
+
+.desc{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px
+}
+
+.meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:17px 0 20px
+}
+
+.meta span{
+  background:#f0f5f1;
+  border:1px solid var(--border);
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:11px;
+  color:#51635a
+}
+
+.btn{
+  display:inline-flex;
+  justify-content:center;
+  width:100%;
+  padding:13px 16px;
+  border-radius:13px;
+  background:var(--accent);
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+  font-size:14px
+}
+
+.note{
+  margin-top:12px;
+  font-size:11px;
+  color:#74837a;
+  text-align:center
+}
+
+/* Written tutorial */
+.written-tutorial{
+  margin:0 0 40px;
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--border);
+  box-shadow:0 12px 35px rgba(25,55,33,.06)
+}
+
+.section-head{text-align:center;margin-bottom:20px}
+.section-title{font-size:24px;font-weight:850;letter-spacing:-.03em;margin:4px 0 6px}
+.section-sub{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+
+.written-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px
+}
+
+.written-step{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:17px
+}
+
+.written-number{
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  background:var(--soft);
+  color:var(--accent);
+  font-weight:900;
+  font-size:12px
+}
+
+.written-step h3{margin:11px 0 6px;font-size:15px}
+.written-step p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+
+.video-note{
+  margin:18px 0 0;
+  padding:14px 16px;
+  border-radius:13px;
+  background:var(--soft);
+  color:#42564a;
+  text-align:center;
+  font-size:12px;
+  line-height:1.5
+}
+
+/* Tutorials */
+.tutorials{
+  margin:0 0 40px;
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--border);
+  box-shadow:0 12px 35px rgba(25,55,33,.06)
+}
+
+.tutorials-head{
+  text-align:center;
+  margin-bottom:20px
+}
+
+.tutorials-title{
+  font-size:24px;
+  font-weight:850;
+  letter-spacing:-.03em;
+  margin:4px 0 6px
+}
+
+.tutorials-sub{
+  margin:0;
+  color:var(--muted);
+  font-size:13px
+}
+
+.tutorial-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px
+}
+
+.tutorial-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px
+}
+
+.tutorial-tag{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  color:var(--muted)
+}
+
+.tutorial-card h3{
+  margin:7px 0 6px;
+  font-size:18px
+}
+
+.tutorial-card p{
+  margin:0 0 14px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5
+}
+
+.tutorial-actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap
+}
+
+.tutorial-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 12px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  background:var(--accent);
+  color:#fff
+}
+
+.repo-note{
+  margin-top:18px;
+  text-align:center;
+  color:#66766c;
+  font-size:12px
+}
+
+.repo-note a{
+  color:var(--accent);
+  font-weight:800;
+  text-decoration:none
+}
+
+.faq{margin:0 0 40px;padding:24px;border-radius:24px;background:rgba(255,255,255,.72);border:1px solid var(--border);box-shadow:0 12px 35px rgba(25,55,33,.06)}
+.faq-title{margin:0 0 10px;font-size:24px;font-weight:850;letter-spacing:-.03em}
+details{background:rgba(255,255,255,.78);border:1px solid rgba(23,49,30,.08);border-radius:12px;margin-top:8px;overflow:hidden}
+summary{cursor:pointer;padding:13px 15px;font-size:13px;font-weight:750;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--accent);font-size:18px;line-height:1}
+details[open] summary::after{content:"−"}
+.faq-answer{padding:0 15px 14px;color:var(--muted);font-size:12px;line-height:1.6}
+footer{padding-bottom:35px;text-align:center;color:#74837a;font-size:12px}
+
+@media(max-width:900px){
+  .written-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:760px){
+  .downloads,.steps,.tutorial-grid{grid-template-columns:1fr}
+  .written-grid{grid-template-columns:1fr}
+  header{padding-top:45px}
+  .hero{font-size:16px}
+  .quick-nav a{flex:1 1 calc(50% - 9px)}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+<div class="eyebrow"><span class="dot"></span> Orbit for KIET</div>
+
+<h1>Your CyberVidya,<br>cleaned up.</h1>
+
+<p class="hero">
+Orbit for KIET is a <strong>student-made browser extension for CyberVidya</strong> that gives you a cleaner view of your attendance instead of making you dig through the usual attendance interface.
+</p>
+
+<div class="features">
+<span class="pill">Overall attendance</span>
+<span class="pill">Subject-wise</span>
+<span class="pill">75% planner</span>
+<span class="pill">Lecture history</span>
+<span class="pill">4-day timetable</span>
+<span class="pill">Attendance projection</span>
+<span class="pill">Present / Absent projection</span>
+<span class="pill">Minimize panel</span>
+</div>
+
+<nav class="quick-nav" aria-label="Quick navigation">
+<a href="#downloads">⬇️ Download</a>
+<a href="#whats-new">✨ What's new</a>
+<a href="#written-tutorial">📖 Written tutorial</a>
+<a href="#video-tutorials">🎥 Video tutorials</a>
+<a href="#faqs">❓ FAQs</a>
+</nav>
+</header>
+
+<section class="about">
+<h2>What is Orbit?</h2>
+<p>
+Orbit is an <strong>unofficial student-made companion for your college's CyberVidya portal</strong>. It does not replace CyberVidya or ask you to create another account. After you log in to CyberVidya normally, Orbit reads the attendance data already available to your session and presents it in a much cleaner way — including overall and subject-wise attendance, a 75% attendance planner, lecture history, today's classes and a date-wise timetable for the next four days. You can also project attendance by marking unrecorded classes as Present or Absent and calculate the resulting subject-wise and overall attendance.
+</p>
+</section>
+
+<section class="downloads" id="downloads">
+
+<article class="card">
+<div class="card-top">
+<div>
+<div class="tag">Desktop · PC</div>
+<h2>PC / Chrome / Brave</h2>
+</div>
+<div class="icon">💻</div>
+</div>
+
+<p class="desc">
+The desktop Chromium build of Orbit for Chrome, Brave, Edge and other Chromium-based PC browsers. Includes the 4-day timetable and attendance projection tools for planning upcoming classes.
+</p>
+
+<div class="meta">
+<span>ZIP</span>
+<span>Desktop</span>
+<span>Projection</span>
+<span>4-day timetable</span>
+</div>
+
+<a class="btn" href="/api/download?type=pc">
+Download for PC
+</a>
+
+<div class="note">
+Use your browser's extension workflow to load the downloaded extension.
+</div>
+</article>
+
+<article class="card">
+<div class="card-top">
+<div>
+<div class="tag">Mobile · Quetta</div>
+<h2>Quetta Browser</h2>
+</div>
+<div class="icon">📱</div>
+</div>
+
+<p class="desc">
+The Android Chromium build of Orbit specifically prepared for Quetta Browser, with the 4-day timetable and attendance projection tools.
+</p>
+
+<div class="meta">
+<span>ZIP</span>
+<span>Android</span>
+<span>Projection</span>
+<span>4-day timetable</span>
+</div>
+
+<a class="btn" href="/api/download?type=quetta">
+Download for Quetta
+</a>
+
+<div class="note">
+Import the downloaded extension using Quetta's extension workflow.
+</div>
+</article>
+
+</section>
+
+<section class="about" id="whats-new">
+<h2>What's new</h2>
+<p>
+The latest builds add <strong>attendance projection</strong> and a full <strong>4-day date-wise timetable</strong>. In the timetable, you can mark unrecorded classes as Present or Absent, use the day-level controls, and calculate projected subject and overall attendance. <strong>Officially recorded attendance is never changed</strong>, and projected values are marked with <strong>*</strong> so they are clearly distinguishable from your real attendance.
+</p>
+</section>
+
+<section class="written-tutorial" id="written-tutorial">
+<div class="section-head">
+<div class="tutorial-tag">No video required</div>
+<div class="section-title">5-step written tutorial</div>
+<p class="section-sub">Follow these steps in order. The important part is to load your CyberVidya Dashboard once before opening Orbit.</p>
+</div>
+
+<div class="written-grid">
+<article class="written-step">
+<div class="written-number">01</div>
+<h3>Download Orbit</h3>
+<p>Choose the PC build for a desktop Chromium browser or the Quetta build for Android.</p>
+</article>
+
+<article class="written-step">
+<div class="written-number">02</div>
+<h3>Install the extension</h3>
+<p>Load the downloaded ZIP through your browser's extension workflow. The exact process is covered in the video guides below.</p>
+</article>
+
+<article class="written-step">
+<div class="written-number">03</div>
+<h3>Log in to CyberVidya</h3>
+<p>Open CyberVidya and log in normally using your college credentials. Orbit does not need your password separately.</p>
+</article>
+
+<article class="written-step">
+<div class="written-number">04</div>
+<h3>Load the Dashboard</h3>
+<p>Open the CyberVidya Dashboard and wait for it to load completely at least once. This initializes the session Orbit needs.</p>
+</article>
+
+<article class="written-step">
+<div class="written-number">05</div>
+<h3>Refresh Orbit</h3>
+<p>Open or refresh Orbit after the Dashboard has loaded. Your attendance, planner, history and timetable should now appear.</p>
+</article>
+</div>
+
+<div class="video-note"><strong>Important:</strong> Before opening Orbit, log in to CyberVidya and load the <strong>Dashboard</strong> completely at least once. If Orbit shows a red error, refresh Orbit after the Dashboard has loaded.</div>
+<div class="video-note">
+<strong>Having trouble?</strong> Don't worry — watch the <strong>1-minute video tutorial</strong> for your device below. It walks through the installation and usage visually.
+</div>
+</section>
+
+<section class="tutorials" id="video-tutorials">
+<div class="tutorials-head">
+<div class="tutorial-tag">Getting started</div>
+<div class="tutorials-title">Installation &amp; usage tutorials</div>
+<p class="tutorials-sub">Watch the guide for your browser if you prefer a visual walkthrough.</p>
+</div>
+
+<div class="tutorial-grid">
+<article class="tutorial-card">
+<div class="tutorial-tag">Desktop</div>
+<h3>PC installation &amp; usage</h3>
+<p>Step-by-step guide for installing and using Orbit on your PC.</p>
+<div class="tutorial-actions">
+<a class="tutorial-btn" href="https://drive.google.com/file/d/1ctnX_47_S6bM4HDvMKjOcBerpvRogsQJ/view" target="_blank" rel="noopener">▶ Watch tutorial</a>
+</div>
+</article>
+
+<article class="tutorial-card">
+<div class="tutorial-tag">Mobile · Quetta</div>
+<h3>Quetta installation &amp; usage</h3>
+<p>Step-by-step guide for installing and using Orbit on Quetta Browser.</p>
+<div class="tutorial-actions">
+<a class="tutorial-btn" href="https://drive.google.com/file/d/1BeHQ3vnVuCPnfP8ddvWZPN-n1KcixSQB/view" target="_blank" rel="noopener">▶ Watch tutorial</a>
+</div>
+</article>
+</div>
+
+<div class="repo-note">
+Enjoying Orbit? <a href="https://github.com/Shivansh4171/orbit-kiet" target="_blank" rel="noopener">Consider starring the GitHub repository ⭐</a>
+</div>
+</section>
+
+
+
+<section class="before-start" id="faqs">
+<div class="faq">
+<div class="faq-title">Frequently asked questions</div>
+<details>
+<summary>Orbit is showing a red error. Is it broken?</summary>
+<div class="faq-answer">Usually, no. First make sure you are logged into CyberVidya and have loaded the Dashboard at least once. Then refresh Orbit. Orbit reads data from your authenticated CyberVidya session, so it cannot work before that session is ready.</div>
+</details>
+
+<details>
+<summary>Why do I need to load the Dashboard first?</summary>
+<div class="faq-answer">CyberVidya initializes the authenticated session and the required portal data while the Dashboard loads. Orbit uses that existing session rather than asking you for your CyberVidya credentials.</div>
+</details>
+
+<details>
+<summary>Does Orbit store my CyberVidya password?</summary>
+<div class="faq-answer">No. Orbit does not need your CyberVidya password to display the attendance data. Log in directly through the official CyberVidya portal.</div>
+</details>
+
+<details>
+<summary>Which browsers are supported?</summary>
+<div class="faq-answer">The PC build is intended for Chromium-based desktop browsers such as Chrome, Brave and Edge. The mobile build is prepared for Quetta Browser on Android.</div>
+</details>
+
+<details>
+<summary>Where can I learn how to install Orbit?</summary>
+<div class="faq-answer">You can follow the 5-step written tutorial above or watch the separate PC and Quetta video tutorials.</div>
+</details>
+
+<details>
+<summary>Is Orbit an official CyberVidya or college product?</summary>
+<div class="faq-answer">No. Orbit is an unofficial, student-made companion. CyberVidya remains the official attendance portal.</div>
+</details>
+
+</div>
+</section>
+
+<footer>
+Orbit for KIET · unofficial student-made companion
+</footer>
+
+</div>
+</body>
+</html>
